@@ -1,0 +1,6 @@
+aa9fa917e9712a3f4c9e97095e61dee2  /home/jenkins/workspace/build_go/package/opt/goapp/build_go
+600f60eca11f6d23ee3dfa147d5909d9  /home/jenkins/workspace/build_go/package/etc/systemd/system/web-calc.service
+aa9fa917e9712a3f4c9e97095e61dee2  /home/jenkins/workspace/build_go/package/usr/bin/build_go
+f3c4b705ec31c568387e5acfbb32997d  /home/jenkins/workspace/build_go/package/DEBIAN/control
+45a625155d2b3cc8ec4bb89228a05c84  /home/jenkins/workspace/build_go/package/DEBIAN/md5sums
+00df17d6c9f6f0314662bc1031a86383  /home/jenkins/workspace/build_go/package/DEBIAN/postinst
