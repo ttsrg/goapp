@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent slave
 
   stages {
     stage('Build') {
@@ -14,9 +14,9 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        sh "rsync -av main root@goapp.srwx.net:/usr/local/bin/goapp"
-        sh "ssh root@goapp.srwx.net -l root '/etc/init.d/goapp stop'"
-        sh "ssh root@goapp.srwx.net -l root '/etc/init.d/goapp start'"
+      	sh "./createdeb.sh"
+	sh "lintian package.deb web-calc_1.0-1_all.deb"        
+	sh "dpkg -i web-calc_1.0-1_all.deb "
       }
     }
   }

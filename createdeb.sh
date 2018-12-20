@@ -14,44 +14,50 @@ logger -s -p "syslog.err" -t  "calc-web.deb script '$0' error code $exit_status 
 exit $exit_status
 }
 
+###############################
+dpath=package
+if  [ -e $dpath ]; then rm -r $dpath
+fi
 
-export  dpath=web-calc
 #mkdir -p  $dpath/DEBIAN $dpath/usr/bin
 mkdir -p $dpath $dpath/DEBIAN $dpath/usr/bin $dpath/opt/goapp/ $dpath/etc/systemd/system
+echo -e "Package: web-calc\nVersion: 1.0-1\nDepends: dpkg, golang-go, fakeroot, lintian\nMaintainer: ttserg\nSection: misc\nDescription: web calc\nArchitecture: all"  > $dpath/DEBIAN/control
+#echo -e "#!/bin/bash\nsystemctl stop web-calc > /dev/null"  > $dpath/DEBIAN/preinst
+#echo -e "#!/bin/bash\nsystemctl stop web-calc"  > $dpath/DEBIAN/prerm
+#echo -e "#!/bin/bash\nrm -r /etc/systemd/system/web-calc.service /opt/goapp\n/usr/bin/build_go\n"  > $dpath/DEBIAN/postrm
+echo -e "#!/bin/bash\nsystemctl daemon-reload\nsystemctl start web-calc\nsystemctl enable web-calc"  > $dpath/DEBIAN/postinst
 
+chmod 0555 $dpath/DEBIAN/postinst
+#chmod 0555 $dpath/DEBIAN/postrm
+# $dpath/DEBIAN/prerm
+#chmod 0555  $dpath/DEBIAN/preinst
 
-echo -e "Package: web-calc\nVersion: 1.0-1\nDepends: dpkg, golang-go, fakeroot, lintian\nMaintainer: ttserg\nDescription: web calc\nArchitecture: any"  > DEBIAN/control
-echo -e "/opt/goapp"  > $dpath/DEBIAN/dirs
-#systemctl stop web-calc
-#cp ../build-go/build_go {usr/bin,opt/goapp/}
-cp ../../build_go/build_go $dpath/usr/bin/
-cp ../../build_go/build_go $dpath/opt/goapp/
+cp build_go $dpath/usr/bin/
+cp build_go $dpath/opt/goapp/
 
 #create web-calc.service
-FILE=etc/systemd/system/web-calc.service
-
+FILE=$dpath/etc/systemd/system/web-calc.service
 cat << EOF > $FILE
 [Unit]
 Description=Web Calc
 After=network.target
-
 [Service]
 Type=simple
 ExecStart=/opt/goapp/build_go
-
 [Install]
-Wanted.by=multi-user.target
+WantedBy=multi-user.target
 EOF
 
-md5deep -r . > $dpath/DEBIAN/md5sums
+md5deep -r $dpath > $dpath/DEBIAN/md5sums
 
-#sudo  systemctl daemon-reload
-#sudo systemctl start web-calc
-#md5
+fakeroot dpkg-deb --build package
+mv package.deb  web-calc_1.0-1_all.deb
 
-#fakeroot dpkg-deb --build deb
-#mv deb.deb web-calc_1.0-1_all.deb
 #lintian deb.deb web-calc_1.0-1_all.deb
 
-
 exit 0
+
+
+###  rm -vf /var/lib/dpkg/info/web-calc.*
+###   dpkg --remove --force-remove-reinstreq web-calc
+
