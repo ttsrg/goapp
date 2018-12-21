@@ -1,7 +1,0 @@
-Package: web-calc
-Version: 1.0-1
-Depends: dpkg, golang-go, fakeroot, lintian
-Maintainer: ttserg
-Section: misc
-Description: web calc
-Architecture: all
