@@ -1,0 +1,8 @@
+[Unit]
+Description=Web Calc
+After=network.target
+[Service]
+Type=simple
+ExecStart=/opt/goapp/build_go
+[Install]
+WantedBy=multi-user.target
