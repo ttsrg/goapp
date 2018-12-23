@@ -16,8 +16,8 @@ exit $exit_status
 
 ###############################
 dpath=web-calc
-if  [ -e $dpath ]; then rm -r $dpath; fi
-[ -f $dpath ] &&  rm  $dpath
+if  [ -e $dpath ]; then rm -rf $dpath; fi
+[ -f $dpath ] &&  rm -rf $dpath
 
 #mkdir -p  $dpath/DEBIAN $dpath/usr/bin
 mkdir -p $dpath $dpath/DEBIAN $dpath/usr/bin $dpath/opt/goapp/ $dpath/etc/systemd/system
@@ -54,7 +54,7 @@ fakeroot dpkg-deb --build $dpath
 
 
 
-mv $dpath.deb   $dpath_$1.deb
+#mv $dpath.deb   "$dpath"_"$1".deb
 
 #lintian deb.deb web-calc_1.0-1_all.deb
 
