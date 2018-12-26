@@ -1,5 +1,5 @@
 Package: web-calc
-Version: 6
+Version: 21
 Depends: dpkg, golang-go, fakeroot, lintian
 Maintainer: ttserg
 Section: misc

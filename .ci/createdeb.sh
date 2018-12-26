@@ -17,12 +17,15 @@ exit $exit_status
 ###############################
 dpath=web-calc
 if  [ -e $dpath ]; then rm -rf $dpath; fi
-[ -f $dpath ] &&  rm -rf $dpath
+#[[ -f $dpath* ]] &&  rm -f $dpath*
+if ls -d $dpath* >/dev/null 2>&1; then rm -f $dpath*; fi
+
+#sleep 3
 
 #mkdir -p  $dpath/DEBIAN $dpath/usr/bin
 mkdir -p $dpath $dpath/DEBIAN $dpath/usr/bin $dpath/opt/goapp/ $dpath/etc/systemd/system
 echo -e "Package: web-calc\nVersion: $1\nDepends: dpkg, golang-go, fakeroot, lintian\nMaintainer: ttserg\nSection: misc\nDescription: web calc\nArchitecture: all"  > $dpath/DEBIAN/control
-#echo -e "#!/bin/bash\nsystemctl stop web-calc > /dev/null"  > $dpath/DEBIAN/preinst
+#echo -e "#!/bin/bash\nsystemctl stop web-calc"  > $dpath/DEBIAN/preinst
 #echo -e "#!/bin/bash\nsystemctl stop web-calc"  > $dpath/DEBIAN/prerm
 #echo -e "#!/bin/bash\nrm -r /etc/systemd/system/web-calc.service /opt/goapp\n/usr/bin/build_go\n"  > $dpath/DEBIAN/postrm
 echo -e "#!/bin/bash\nsystemctl daemon-reload\nsystemctl start web-calc\nsystemctl enable web-calc"  > $dpath/DEBIAN/postinst
@@ -54,7 +57,7 @@ fakeroot dpkg-deb --build $dpath
 
 
 
-#mv $dpath.deb   "$dpath"_"$1".deb
+mv $dpath.deb   "$dpath"_"$1".deb
 
 #lintian deb.deb web-calc_1.0-1_all.deb
 
