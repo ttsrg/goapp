@@ -1,0 +1,36 @@
+su - jenkins
+ apt-get install aptly 
+apt install rng-tools 
+gpg --gen-key 
+gpg --list-keys 
+gpg -a --export 764DD227B13D3D37A68D6DAA92A515DC3722F174
+
+
+###############################
+#remove non-universal deb
+sudo aptly publish drop bionic aptly repo drop releases aptly repo create -distribution bionic -component main releases aptly repo 
+search releases && ls -la .ci/ aptly repo add releases /home/jenkins/workspace/build_go/.ci/web-calc_5.deb sudo aptly publish repo 
+-architectures=amd64 releases aptly repo search releases ls -la ~/.aptly/public/pool/main/w/web-calc/
+##########################
+
+
+aptly repo create -distribution bionic -component main releases 
+aptly repo add releases 
+/home/jenkins/workspace/build_go/.ci/web-calc_xx.deb 
+sudo aptly publish repo -architectures=amd64 releases 
+aptly serve -listen=:5000 
+aptly repo search releases
+
+ | apt-key add -
+apt-key add -
+
+# add package
+sudo aptly publish update bionic 
+aptly repo add releases package.deb 
+aptly publish update bionic
+
+
+apt-cache policy web-calc
+apt-cache show  web-calc
+apt show web-calc -a
+apt search web-calc
