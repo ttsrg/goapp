@@ -1,0 +1,3 @@
+#!/bin/bash
+systemctl stop web-calc
+systemctl disable web-calc

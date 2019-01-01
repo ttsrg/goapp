@@ -1,6 +1,6 @@
 Package: web-calc
-Version: 44
-Depends: dpkg, golang-go, fakeroot, lintian
+Version: 101
+Depends: dpkg, golang-go, fakeroot, lintian, ncdu
 Maintainer: ttserg
 Section: misc
 Description: web calc

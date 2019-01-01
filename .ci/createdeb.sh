@@ -24,14 +24,18 @@ if ls -d $dpath* >/dev/null 2>&1; then rm -f $dpath*; fi
 
 #mkdir -p  $dpath/DEBIAN $dpath/usr/bin
 mkdir -p $dpath $dpath/DEBIAN $dpath/usr/bin $dpath/opt/goapp/ $dpath/etc/systemd/system
-echo -e "Package: web-calc\nVersion: $1\nDepends: dpkg, golang-go, fakeroot, lintian\nMaintainer: ttserg\nSection: misc\nDescription: web calc\nArchitecture: all"  > $dpath/DEBIAN/control
+echo -e "Package: web-calc\nVersion: $1\nDepends: dpkg, golang-go, fakeroot, lintian, ncdu\nMaintainer: ttserg\nSection: misc\nDescription: web calc\nArchitecture: all"  > $dpath/DEBIAN/control
 #echo -e "#!/bin/bash\nsystemctl stop web-calc"  > $dpath/DEBIAN/preinst
-#echo -e "#!/bin/bash\nsystemctl stop web-calc"  > $dpath/DEBIAN/prerm
-#echo -e "#!/bin/bash\nrm -r /etc/systemd/system/web-calc.service /opt/goapp\n/usr/bin/build_go\n"  > $dpath/DEBIAN/postrm
-echo -e "#!/bin/bash\nsystemctl daemon-reload\nsystemctl start web-calc\nsystemctl enable web-calc"  > $dpath/DEBIAN/postinst
+echo -e "#!/bin/bash\necho "prerm"\n"  > $dpath/DEBIAN/prerm
+echo -e "\nsystemctl stop web-calc\nsystemctl disable web-calc"  >> $dpath/DEBIAN/prerm
+echo -e "#!/bin/bash\necho "postrm"\n"  > $dpath/DEBIAN/postrm
+#echo -e "systemctl stop web-calc\nsystemctl disable web-calc\nsystemctl daemon-reload\necho alles\n"  >> $dpath/DEBIAN/postrm
+echo -e "\nrm -r /etc/systemd/system/web-calc.service /opt/goapp\n/usr/bin/build_go\n"  >> $dpath/DEBIAN/postrm
+echo -e "#!/bin/bash\nsystemctl daemon-reload\nsystemctl restart web-calc\nsystemctl enable web-calc"  > $dpath/DEBIAN/postinst
 
 chmod 0555 $dpath/DEBIAN/postinst
-#chmod 0555 $dpath/DEBIAN/postrm
+chmod 0555 $dpath/DEBIAN/prerm
+chmod 0555 $dpath/DEBIAN/postrm
 # $dpath/DEBIAN/prerm
 #chmod 0555  $dpath/DEBIAN/preinst
 

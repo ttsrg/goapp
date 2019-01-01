@@ -1,5 +1,7 @@
 aa9fa917e9712a3f4c9e97095e61dee2  /home/jenkins/workspace/build_go/.ci/web-calc/opt/goapp/build_go
 600f60eca11f6d23ee3dfa147d5909d9  /home/jenkins/workspace/build_go/.ci/web-calc/etc/systemd/system/web-calc.service
-a73a41ab5008f5865e1413a00598b7bb  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/control
-87ef5afb6fd755010d60c7c3a0ca227c  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/md5sums
-00df17d6c9f6f0314662bc1031a86383  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/postinst
+4f04c2bdf6467d0da52bcb4e89e79c9d  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/control
+7eab86e2b2c14ced1769058b3273305d  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/postrm
+8d4d22caf09eaa8f3cb83e12cc7876c0  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/md5sums
+e4591ac8e16c273a12ddcda793320cc6  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/prerm
+cc66481b5a39843b2b9e9f6c9ece8e7f  /home/jenkins/workspace/build_go/.ci/web-calc/DEBIAN/postinst
